@@ -1,60 +1,100 @@
 body {
   font-family: Arial, sans-serif;
+  background: #f9f9f9;
+  color: #000;
   text-align: center;
   padding: 20px;
   transition: background 0.3s, color 0.3s;
 }
 
-/* ライトテーマ */
-body.light {
-  background: #f9f9f9;
-  color: #333;
+body.dark {
+  background: #1e1e1e;
+  color: #f0f0f0;
 }
 
-/* ダークテーマ */
-body.dark {
-  background: #222;
-  color: #eee;
+h1 {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin: 8px 0;
+}
+
+button {
+  margin: 15px 0;
+  padding: 10px 15px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+#result {
+  margin-top: 20px;
+  font-weight: bold;
+  text-align: left;
+  display: inline-block;
+}
+
+#theme-toggle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.detail {
+  margin-left: 20px;
+  text-align: left;
+}
+
+.hidden {
+  display: none;
+}
+
+#details {
+  margin-top: 15px;
+  text-align: left;
 }
 
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 20px;
+  position:0 10px;
+}
+
+header .left {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* タイトルとセレクトの間隔 */
+}
+
+
+#current-game {
+  font-weight: bold;
+}
+
+#game-select {
+  padding: 5px 10px;
+  font-size: 1em;
+  margin-right: 5px;
 }
 
 #theme-toggle {
-  font-size: 1.2em;
   padding: 5px 10px;
+  font-size: 1em;
   cursor: pointer;
+    margin-left: 20px; /* セレクトとボタンの距離を確保 */
 }
 
-.tabs {
-  margin: 20px 0;
+/* ダークモードでのセレクト・ボタン */
+body.dark #game-select {
+  background: #333;
+  color: #f0f0f0;
+  border: 1px solid #666;
 }
 
-.tab-button {
-  padding: 10px;
-  cursor: pointer;
-  border: none;
-  margin: 0 5px;
-  background: #ddd;
-}
-
-.tab-button.active {
-  background: #aaa;
-  color: white;
-}
-
-.tab-content {
-  display: none;
-}
-
-.tab-content.active {
-  display: block;
-}
-
-#result-banner1, #result-banner2 {
-  margin-top: 10px;
-  font-weight: bold;
+body.dark #theme-toggle {
+  background: #444;
+  color: #f0f0f0;
 }

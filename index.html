@@ -2,38 +2,30 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>ガチャ計算アプリ</title>
+  <title>ガチャ計算アプリ1.4</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <h1>ガチャ計算アプリ</h1>
-    <button id="theme-toggle">🌙</button>
+    <div class="left">
+      <h1>ガチャ計算アプリ</h1>
+      <span id="current-game"></span>
+      <select id="game-select"></select>
+    </div>
+      <button id="theme-toggle">🌙</button>
   </header>
 
-  <div class="tabs">
-    <button class="tab-button active" data-tab="banner1">バナー1</button>
-    <button class="tab-button" data-tab="banner2">バナー2</button>
-  </div>
+  <div id="calculator">
+    <label>限定チケット: <input type="number" id="tickets" min="0"></label><br>
+    <label>無償石: <input type="number" id="free-stones" min="0"></label><br>
+    <label>有償石: <input type="number" id="paid-stones" min="0"></label><br>
+    <label>交換アイテム: <input type="number" id="items" min="0"></label><br>
+    <label>恒常チケット: <input type="number" id="permanent-tickets" min="0"></label><br>
+    <button onclick="calculate()">計算</button>
+    <div id="result"></div>
 
-  <div id="banner1" class="tab-content active">
-    <h2>バナー1</h2>
-    <label>限定チケット: <input type="number" id="tickets-banner1" min="0"></label><br>
-    <label>無償石: <input type="number" id="free-stones-banner1" min="0"></label><br>
-    <label>有償石: <input type="number" id="paid-stones-banner1" min="0"></label><br>
-    <label>交換アイテム: <input type="number" id="items-banner1" min="0"></label><br>
-    <button onclick="calculate('banner1')">計算</button>
-    <div id="result-banner1"></div>
-  </div>
-
-  <div id="banner2" class="tab-content">
-    <h2>バナー2</h2>
-    <label>限定チケット: <input type="number" id="tickets-banner2" min="0"></label><br>
-    <label>無償石: <input type="number" id="free-stones-banner2" min="0"></label><br>
-    <label>有償石: <input type="number" id="paid-stones-banner2" min="0"></label><br>
-    <label>交換アイテム: <input type="number" id="items-banner2" min="0"></label><br>
-    <button onclick="calculate('banner2')">計算</button>
-    <div id="result-banner2"></div>
+    <!-- 詳細表示エリア -->
+    <div id="details" class="hidden"></div>
   </div>
 
   <script src="script.js"></script>
