@@ -1,24 +1,60 @@
-:root{--bg:#f7fbff;--card:#ffffff;--accent:#0b6cff;--muted:#666}
-html,body{height:100%}
-body{
-font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic UI", "メイリオ", sans-serif;
-background:linear-gradient(180deg,var(--bg) 0%, #f2f6fb 100%);
-color:#111;
-padding:28px;
-display:flex;align-items:flex-start;justify-content:center;
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 20px;
+  transition: background 0.3s, color 0.3s;
 }
-.card{
-width:100%;max-width:760px;background:var(--card);border-radius:12px;padding:20px 22px;box-shadow:0 8px 30px rgba(12,35,77,0.08);
+
+/* ライトテーマ */
+body.light {
+  background: #f9f9f9;
+  color: #333;
 }
-h1{font-size:1.2rem;margin:0 0 6px}
-p.small{margin:6px 0 12px;color:var(--muted);font-size:0.92rem}
-label{display:block;margin:8px 0;font-size:0.95rem}
-input[type=number]{width:140px;padding:8px;border-radius:8px;border:1px solid #e6eefb;margin-top:6px}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;align-items:center}
-.controls{margin-top:12px;display:flex;gap:10px}
-button{padding:8px 12px;border-radius:8px;border:0;background:var(--accent);color:#fff;cursor:pointer}
-button.secondary{background:#e9f0ff;color:#0b6cff}
-.result{margin-top:16px;padding:12px;border-radius:10px;background:#fbfdff;border:1px solid #eef6ff}
-ul{margin:6px 0 0 18px}
-.muted{color:var(--muted);font-size:0.9rem}
-@media (max-width:520px){.grid{grid-template-columns:1fr}input[type=number]{width:100%}}
+
+/* ダークテーマ */
+body.dark {
+  background: #222;
+  color: #eee;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#theme-toggle {
+  font-size: 1.2em;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.tabs {
+  margin: 20px 0;
+}
+
+.tab-button {
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  margin: 0 5px;
+  background: #ddd;
+}
+
+.tab-button.active {
+  background: #aaa;
+  color: white;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+#result-banner1, #result-banner2 {
+  margin-top: 10px;
+  font-weight: bold;
+}
