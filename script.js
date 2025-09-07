@@ -26,7 +26,7 @@ const GAME_CONFIGS = {
 };
 
 // 現在選択中のゲーム
-let currentConfig = GAME_CONFIGS.genshin;
+let currentConfig = GAME_CONFIGS.starrail;
 
 // ===== メイン計算 =====
 function calculate() {
