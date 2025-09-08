@@ -11,6 +11,7 @@ const GAME_CONFIGS = {
     itemsFrom10PullStar4: [8, 20],
     permanentTicketPerItems: { low: 8, high: 20 }
   },
+
   zzz: {
     name: "ゼンレスゾーンゼロ",
     stonesPerTicket: 160,
@@ -33,6 +34,18 @@ const GAME_CONFIGS = {
     pityRewardItems: 30, // 40アイテム = 石?? → 共通で石に変換（ここでは40→石320扱い）
     itemsFrom10PullStar4: [6, 15], // 仕様に応じて
     permanentTicketPerItems: { low: 6, high: 15 }
+  },
+
+    waves: {
+    name: "鳴潮",
+    stonesPerTicket: 160,
+    changeItem: 8,
+    itemToStones: 160,
+    softPity: 80,
+    hardPity: 160,
+    pityRewardItems:15,
+    itemsFrom10PullStar4: [3, 8],
+    permanentTicketPerItems: { low: 3, high: 8 }
   },
 
 };
