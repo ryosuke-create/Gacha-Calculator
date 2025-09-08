@@ -2,29 +2,31 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>ガチャ計算アプリ1.6</title>
+  <title>ガチャ計算アプリ1.8</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
     <div class="left">
-      <h1>ガチャ計算アプリ1.6</h1>
+      <h1>ガチャ計算アプリ1.8</h1>
       <span id="current-game"></span>
       <select id="game-select"></select>
     </div>
-      <button id="theme-toggle">🌙</button>
+    <button id="theme-toggle">🌙</button>
   </header>
 
   <div id="calculator">
-    <label>限定チケット: <input type="number" id="tickets" min="0"></label><br>
-    <label>無償石: <input type="number" id="free-stones" min="0"></label><br>
-    <label>有償石: <input type="number" id="paid-stones" min="0"></label><br>
-    <label>交換アイテム: <input type="number" id="items" min="0"></label><br>
-    <label>恒常チケット: <input type="number" id="permanent-tickets" min="0"></label><br>
-    <button onclick="calculate()">計算</button>
-    <div id="result"></div>
+    <label>限定チケット: <input type="number" id="tickets" min="0"></label>
+    <label>無償石: <input type="number" id="free-stones" min="0"></label>
+    <label>有償石: <input type="number" id="paid-stones" min="0"></label>
+    <label>交換アイテム: <input type="number" id="items" min="0"></label>
+    <label>恒常チケット: <input type="number" id="permanent-tickets" min="0"></label>
 
-    <!-- 詳細表示エリア -->
+    <div class="buttons">
+      <button class="calculate" onclick="calculate()">計算する</button>
+    </div>
+
+    <div id="result" class="hidden"></div>
     <div id="details" class="hidden"></div>
   </div>
 

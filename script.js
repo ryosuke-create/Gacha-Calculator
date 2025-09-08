@@ -7,7 +7,18 @@ const GAME_CONFIGS = {
     itemToStones: 160,
     softPity: 90,
     hardPity: 180,
-    pityRewardItems: 40, // 40アイテム = 石320
+    pityRewardItems: 40,
+    itemsFrom10PullStar4: [8, 20],
+    permanentTicketPerItems: { low: 8, high: 20 }
+  },
+  zzz: {
+    name: "ゼンレスゾーンゼロ",
+    stonesPerTicket: 160,
+    changeItem: 20,
+    itemToStones: 160,
+    softPity: 90,
+    hardPity: 180,
+    pityRewardItems: 40,
     itemsFrom10PullStar4: [8, 20],
     permanentTicketPerItems: { low: 8, high: 20 }
   },
@@ -22,11 +33,12 @@ const GAME_CONFIGS = {
     pityRewardItems: 30, // 40アイテム = 石?? → 共通で石に変換（ここでは40→石320扱い）
     itemsFrom10PullStar4: [6, 15], // 仕様に応じて
     permanentTicketPerItems: { low: 6, high: 15 }
-  }
+  },
+
 };
 
-// 現在選択中のゲーム
-let currentConfig = GAME_CONFIGS.starrail;
+let currentGameKey = "starrail";
+let currentConfig = GAME_CONFIGS[currentGameKey];
 
 // ===== メイン計算 =====
 function calculate() {
@@ -38,8 +50,8 @@ function calculate() {
   const items = parseInt(document.getElementById("items").value) || 0;
   const permanentTickets = parseInt(document.getElementById("permanent-tickets").value) || 0;
 
-  // 入力保存
-  saveInputs({ tickets, freeStones, paidStones, items, permanentTickets });
+  // ゲームごとに保存
+  saveInputs(currentGameKey, { tickets, freeStones, paidStones, items, permanentTickets });
 
   // アイテムを石に変換
   const stonesFromItems = Math.floor(items/cfg.changeItem)*cfg.itemToStones;
@@ -95,7 +107,8 @@ function calculate() {
   const result4Min = Math.min(limitedPerm8_8, limitedPerm8_20, limitedPerm20_8, limitedPerm20_20);
   const result4Max = Math.max(limitedPerm8_8, limitedPerm8_20, limitedPerm20_8, limitedPerm20_20);
 
-  // ==== 表示 ====
+
+  // 結果表示
   let results = [];
   results.push(`<div>① 石＋チケット分: ${result1} 回</div>`);
   results.push(`<div>② 石＋チケット＋交換アイテム分: ${result2} 回</div>`);
@@ -103,8 +116,11 @@ function calculate() {
   results.push(`<div>④ 限定＋恒常チケット考慮: ${result4Min} ～ ${result4Max} 回</div>`);
   results.push(`<button onclick="toggleDetail()">詳細</button>`);
   document.getElementById("result").innerHTML = results.join("");
+  const resultBox = document.getElementById("result"); // ← 変数を定義
+  resultBox.innerHTML = results.join("");
+  resultBox.classList.remove("hidden"); // ← これで表示される
 
-  // 詳細用
+  // 詳細表示
   let details = [];
   details.push(`<b>③ 限定ガチャ交換アイテム考慮 内訳</b><br>
                 ・星4=8: ${addPity(limited8)} 回<br>
@@ -118,19 +134,17 @@ function calculate() {
   document.getElementById("details").classList.add("hidden");
 }
 
-// ===== 詳細表示トグル =====
+// ===== 詳細トグル =====
 function toggleDetail() {
-  const el = document.getElementById("details");
-  if (!el) return;
-  el.classList.toggle("hidden");
+  document.getElementById("details").classList.toggle("hidden");
 }
 
 // ===== 入力保存 =====
-function saveInputs(values) {
-  localStorage.setItem("gachaInputs", JSON.stringify(values));
+function saveInputs(gameKey, values) {
+  localStorage.setItem("gachaInputs_" + gameKey, JSON.stringify(values));
 }
-function loadInputs() {
-  const saved = localStorage.getItem("gachaInputs");
+function loadInputs(gameKey) {
+  const saved = localStorage.getItem("gachaInputs_" + gameKey);
   if (!saved) return;
   const values = JSON.parse(saved);
   document.getElementById("tickets").value = values.tickets ?? "";
@@ -138,6 +152,17 @@ function loadInputs() {
   document.getElementById("paid-stones").value = values.paidStones ?? "";
   document.getElementById("items").value = values.items ?? "";
   document.getElementById("permanent-tickets").value = values.permanentTickets ?? "";
+}
+
+// ===== ゲーム切り替え =====
+function changeGame(key) {
+  if (!GAME_CONFIGS[key]) return;
+  currentGameKey = key;
+  currentConfig = GAME_CONFIGS[key];
+  localStorage.setItem("game", key);
+  document.getElementById("current-game").textContent = currentConfig.name;
+  loadInputs(currentGameKey);
+  calculate();
 }
 
 // ===== テーマ切り替え =====
@@ -148,18 +173,8 @@ function toggleTheme() {
   document.getElementById("theme-toggle").textContent = isDark ? "☀" : "🌙";
 }
 
-// ===== ゲーム切り替え =====
-function changeGame(key) {
-  if (!GAME_CONFIGS[key]) return;
-  currentConfig = GAME_CONFIGS[key];
-  localStorage.setItem("game", key);
-  document.getElementById("current-game").textContent = currentConfig.name;
-  calculate(); // 即再計算
-}
-
+// ===== 初期化 =====
 window.addEventListener("DOMContentLoaded", () => {
-  loadInputs();
-
   // テーマ復元
   const savedTheme = localStorage.getItem("theme");
   if (savedTheme === "dark") {
@@ -170,11 +185,12 @@ window.addEventListener("DOMContentLoaded", () => {
   // ゲーム復元
   const savedGame = localStorage.getItem("game");
   if (savedGame && GAME_CONFIGS[savedGame]) {
+    currentGameKey = savedGame;
     currentConfig = GAME_CONFIGS[savedGame];
   }
   document.getElementById("current-game").textContent = currentConfig.name;
 
-  // ゲーム選択セレクト生成
+  // ゲームセレクト作成
   const gameSelect = document.getElementById("game-select");
   Object.entries(GAME_CONFIGS).forEach(([key, cfg]) => {
     const opt = document.createElement("option");
@@ -185,6 +201,9 @@ window.addEventListener("DOMContentLoaded", () => {
   });
   gameSelect.addEventListener("change", (e) => changeGame(e.target.value));
 
-  // テーマボタンイベント
+  // 入力復元
+  loadInputs(currentGameKey);
+
+  // テーマボタン
   document.getElementById("theme-toggle").addEventListener("click", toggleTheme);
 });

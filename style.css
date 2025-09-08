@@ -17,37 +17,59 @@ h1 {
 }
 
 label {
-  display: block;
-  margin: 8px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px auto;
+  max-width: 380px;
+  font-size: 1.1em;
+}
+
+input[type="number"] {
+  width: 200px;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1em;
+}
+
+.buttons {
+  margin: 20px 0;
 }
 
 button {
-  margin: 15px 0;
-  padding: 10px 15px;
+  margin: 5px 10px;
+  padding: 12px 20px;
   font-size: 1em;
   cursor: pointer;
+  border: none;
+  border-radius: 6px;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+button.calculate {
+  background: #0078ff;
+  color: #fff;
+}
+
+button.reset {
+  background: #ccc;
+  color: #000;
 }
 
 #result {
-  margin-top: 20px;
+  margin-top: 25px;
   font-weight: bold;
   text-align: left;
   display: inline-block;
-}
-
-#theme-toggle {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-
-.detail {
-  margin-left: 20px;
-  text-align: left;
-}
-
-.hidden {
-  display: none;
+  background: #fff;
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  
 }
 
 #details {
@@ -55,20 +77,23 @@ button {
   text-align: left;
 }
 
+.hidden {
+  display: none !important;
+}
+
+/* ヘッダー部分 */
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  position:0 10px;
 }
 
 header .left {
   display: flex;
   align-items: center;
-  gap: 10px; /* タイトルとセレクトの間隔 */
+  gap: 10px;
 }
-
 
 #current-game {
   font-weight: bold;
@@ -84,17 +109,48 @@ header .left {
   padding: 5px 10px;
   font-size: 1em;
   cursor: pointer;
-    margin-left: 20px; /* セレクトとボタンの距離を確保 */
+  margin-left: 20px;
 }
 
-/* ダークモードでのセレクト・ボタン */
+/* ダークモード用 */
+body.dark #result {
+  background: #2b2b2b;
+  border: 1px solid #555;
+}
 body.dark #game-select {
   background: #333;
   color: #f0f0f0;
   border: 1px solid #666;
 }
-
 body.dark #theme-toggle {
   background: #444;
   color: #f0f0f0;
+}
+
+/* スマホ向け（幅600px以下） */
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+    font-size: 0.95em;
+  }
+
+  label {
+    flex-direction: column; /* 縦並びにして狭い画面でも崩れない */
+    align-items: flex-start;
+  }
+
+  input[type="number"] {
+    width: 100%; /* 画面幅に合わせる */
+    box-sizing: border-box;
+  }
+
+  button {
+    width: 100%; /* 横幅いっぱいにする */
+    margin: 8px 0;
+  }
+
+  #result {
+    width: 100%;
+    font-size: 1em;
+  }
 }
